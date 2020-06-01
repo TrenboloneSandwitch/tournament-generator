@@ -3,20 +3,23 @@ import React, { useState } from "react";
 import "./App.scss";
 
 import CreateTournament from "./components/CreateTournament";
+import { TournamentProvider } from "./context/tournamentContext";
 
 function App() {
-  /* const [pageBg, setPageBg] = useState("trophy.jpg"); */
+  const [pageBg, setPageBg] = useState("trophy.jpg");
 
   return (
     <div
       className="App"
-      /* style={{
+      style={{
         backgroundImage: `url(/images/${pageBg})`,
         width: "100%",
         height: "100vh",
-      }} */
+      }}
     >
-      <CreateTournament />
+      <TournamentProvider>
+        <CreateTournament />
+      </TournamentProvider>
     </div>
   );
 }

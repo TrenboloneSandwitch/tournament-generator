@@ -1,15 +1,27 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Sintony:wght@400;700&display=swap");
 
 $bg-color: #04113b;
+$bg-color-trans: #04113b86;
 $text-color: #fffffe;
-$input-bg-col: #020a2277;
+$input-bg-col: #fffffe;
 $bright-color: hsla(172, 80%, 65%, 0.7);
 
 :root {
   --bg-color: #{$bg-color};
+  --bg-color-trans: #{$bg-color-trans};
   --text-color: #{$text-color};
   --input-bg-col: #{$input-bg-col};
   --bright-color: #{$bright-color};
+  --primary-font: "Play", sans-serif;
+  --secondary-font: "Sintony", sans-serif;
+}
+
+h1,
+h2,
+h3,
+label {
+  font-family: var(--primary-font);
 }
 
 * {
@@ -19,11 +31,14 @@ $bright-color: hsla(172, 80%, 65%, 0.7);
 
 label {
   color: var(--text-color);
+  font-variant: small-caps;
+  font-size: 1.3rem;
 }
 
 .form-control {
   background-color: var(--input-bg-col) !important;
   border-color: transparent;
+  border-radius: 10px;
 
   .text-muted {
     color: red !important;
