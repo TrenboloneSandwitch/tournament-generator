@@ -5,7 +5,7 @@ const Input = ({ label, name, col = "12", error, ...rest }) => {
     <div className={`form-group col-${col}`}>
       <label htmlFor={name}>{label}</label>
       <input
-        className={`form-control ${error && "is-invalid"}`}
+        className={`form-control${error ? " is-invalid" : ""}`}
         id={name}
         name={name}
         {...rest}

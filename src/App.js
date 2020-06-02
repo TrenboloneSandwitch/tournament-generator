@@ -12,7 +12,7 @@ function App() {
     <div
       className="App"
       style={{
-        backgroundImage: `url(/images/${pageBg})`,
+        /* backgroundImage: `url(/images/${pageBg})`, */
         width: "100%",
         height: "100vh",
       }}
