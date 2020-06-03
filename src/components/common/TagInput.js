@@ -1,19 +1,16 @@
-import React, { useState } from "react";
-import { id } from "uuid/v4";
+import React, { useState, useContext } from "react";
+import { TournamentContext } from "../../context/tournamentContext";
 
 const TagInput = ({ label, name, col = "12", error, tags, ...rest }) => {
-  const [names, setNames] = useState([
-    "Honza",
-    "Zdenek",
-    "David",
-    "Martin",
-    "Frantisek",
-  ]);
+  const { addTag, deleteTag, state } = useContext(TournamentContext);
+
+  const { players } = state.data;
   const [inputValue, setInputValue] = useState("");
 
-  const handleDelete = (targetName) => {
-    const newNames = names.filter((name) => targetName !== name);
-    setNames(newNames);
+  const handleDelete = (targetPlayer) => {
+    deleteTag(targetPlayer);
+
+    // setNames(newNames);
   };
 
   const handleKeyDown = (e) => {
@@ -21,7 +18,8 @@ const TagInput = ({ label, name, col = "12", error, tags, ...rest }) => {
     if (e.isComposing || e.key === "," || e.key === ";" || e.keyCode === 13) {
       const newValue = inputValue.trim().replace(",", "").replace(";", "");
       setInputValue("");
-      setNames([...names, newValue]);
+
+      addTag(newValue);
     }
   };
 
@@ -38,9 +36,9 @@ const TagInput = ({ label, name, col = "12", error, tags, ...rest }) => {
         onKeyUp={handleKeyDown}
       />
       <div className="tags">
-        {!names.length && <i>Please add four players at least</i>}
+        {!players.length && <i>Please add four players at least</i>}
 
-        {names.map((n) => (
+        {players.map((n) => (
           <div className="tags__element" key={n + Math.random()}>
             <span className="tags__element__text">{n}</span>
             <span

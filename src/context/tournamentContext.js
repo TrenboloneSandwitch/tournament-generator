@@ -5,10 +5,16 @@ import { validateProperty, validate } from "../services/validation";
 
 export const TournamentContext = React.createContext();
 TournamentContext.displayName = "TournamentContext";
-const { CHANGE_ONE, SET_ERROR, SUBMIT_FORM } = reducerVars;
+const {
+  CHANGE_ONE,
+  SET_ERROR,
+  HANDLE_ERRORS,
+  ADD_TAG,
+  DELETE_TAG,
+} = reducerVars;
 
 const initialState = {
-  data: { name: "", place: "", date: "", time: "" },
+  data: { name: "", place: "", date: "", time: "", players: [] },
   errors: {},
 };
 
@@ -22,6 +28,19 @@ export const TournamentProvider = ({ children }) => {
     });
   };
 
+  const addTag = (player) => {
+    dispatch({
+      type: ADD_TAG,
+      payload: { player },
+    });
+  };
+  const deleteTag = (player) => {
+    dispatch({
+      type: DELETE_TAG,
+      payload: { player },
+    });
+  };
+
   const setError = (name, error) => {
     dispatch({
       type: SET_ERROR,
@@ -32,7 +51,7 @@ export const TournamentProvider = ({ children }) => {
   const submitForm = () => {
     const errors = validate(state.data);
     dispatch({
-      type: SUBMIT_FORM,
+      type: HANDLE_ERRORS,
       payload: { errors },
     });
     if (errors) return;
@@ -48,7 +67,7 @@ export const TournamentProvider = ({ children }) => {
     setError(name, errorMessage);
   };
 
-  const value = { handleSingleInput, submitForm, state };
+  const value = { handleSingleInput, submitForm, addTag, deleteTag, state };
 
   return (
     <TournamentContext.Provider value={value}>

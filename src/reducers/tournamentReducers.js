@@ -1,5 +1,11 @@
 import { reducerVars } from "../config";
-const { CHANGE_ONE, SET_ERROR, SUBMIT_FORM } = reducerVars;
+const {
+  CHANGE_ONE,
+  SET_ERROR,
+  HANDLE_ERRORS,
+  ADD_TAG,
+  DELETE_TAG,
+} = reducerVars;
 
 export const tournamentReducer = (state, action) => {
   if (action.type === CHANGE_ONE) {
@@ -18,11 +24,26 @@ export const tournamentReducer = (state, action) => {
 
     return { ...state, errors };
   }
-  if (action.type === SUBMIT_FORM) {
+  if (action.type === HANDLE_ERRORS) {
     const errors = action.payload.errors;
-    console.log(errors);
 
     return { ...state, errors: errors || {} };
+  }
+  if (action.type === ADD_TAG) {
+    const players = [...state.data.players, action.payload.player];
+    const data = { ...state.data, players };
+
+    return { ...state, data };
+  }
+  if (action.type === DELETE_TAG) {
+    /* const playerIndex = state.data.players.findIndex(
+      (elName) => elName === action.payload.player
+    );
+    const players = state.data.players;
+    players.splice(playerIndex, 1);
+    const data = { ...state.data, players };
+
+    return { ...state, data }; */
   }
 
   return state;
