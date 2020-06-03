@@ -3,6 +3,7 @@ import Joi from "joi-browser";
 import { TournamentContext } from "../context/tournamentContext";
 import { validate } from "../services/validation";
 import Input from "./common/Input";
+import TagInput from "./common/TagInput";
 
 const CreateTournament = () => {
   const { handleSingleInput, submitForm, state } = useContext(
@@ -54,6 +55,13 @@ const CreateTournament = () => {
           onChange={({ currentTarget }) => handleSingleInput(currentTarget)}
           value={data["time"]}
           error={errors["time"]}
+        />
+        <TagInput
+          type="text"
+          label="Hraci"
+          name="players"
+          col="12"
+          placeholder="Use comma for separate tags"
         />
         <button disabled={validate(data)} className="btn btn-primary">
           SUBMIT

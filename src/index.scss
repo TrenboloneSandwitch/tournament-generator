@@ -5,7 +5,9 @@ $bg-color: #04113b;
 $bg-color-trans: #04113b86;
 $text-color: #fffffe;
 $input-bg-col: #fffffe;
-$bright-color: hsla(172, 80%, 65%, 0.7);
+$bright-color: rgb(46, 236, 211);
+$pink-color: rgb(241, 54, 232);
+$bright-color-trans: hsla(172, 80%, 65%, 0.7);
 
 :root {
   --bg-color: #{$bg-color};
@@ -13,6 +15,8 @@ $bright-color: hsla(172, 80%, 65%, 0.7);
   --text-color: #{$text-color};
   --input-bg-col: #{$input-bg-col};
   --bright-color: #{$bright-color};
+  --bright-color-trans: #{$bright-color-trans};
+  --pink-color: #{$pink-color};
   --primary-font: "Play", sans-serif;
   --secondary-font: "Sintony", sans-serif;
 }
@@ -40,12 +44,8 @@ label {
   border-color: transparent;
   border-radius: 10px;
 
-  .text-muted {
-    color: red !important;
-  }
-
   &:focus {
-    box-shadow: 0 0 0 0.3rem var(--bright-color);
+    box-shadow: 0 0 0 0.3rem var(--bright-color-trans);
   }
 }
 

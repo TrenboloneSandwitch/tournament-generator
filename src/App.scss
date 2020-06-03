@@ -12,3 +12,40 @@
   height: 100%;
   background: var(--bg-color-trans);
 }
+
+.tags {
+  height: max-content;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  margin-top: 0.5em;
+  border-radius: 10px;
+  width: 100%;
+  justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  color: var(--text-color);
+  background-color: hsla(0, 0%, 100%, 0.26);
+  &__element {
+    border-radius: 10px;
+    width: max-content;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    background-color: var(--pink-color);
+
+    &:nth-child(odd) {
+      background-color: var(--bright-color);
+    }
+
+    &__text {
+      padding: 5px 5px 5px 10px;
+    }
+    &__delete {
+      cursor: pointer;
+      padding: 2.5px 10px;
+
+      //border: 1px solid black;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      background-color: hsla(0, 0%, 0%, 0.26);
+    }
+  }
+}
