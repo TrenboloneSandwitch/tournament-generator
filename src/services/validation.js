@@ -10,10 +10,12 @@ const schema = {
   players: Joi.array().min(4).required().label("Hráči"),
 };
 
-export const validateProperty = ({ name, value }) => {
+export const validateProperty = (name, value) => {
   const obj = { [name]: value };
   const schema_n = { [name]: schema[name] };
   const { error } = Joi.validate(obj, schema_n);
+  console.log(name, value);
+
   return error ? error.details[0].message : null;
 };
 

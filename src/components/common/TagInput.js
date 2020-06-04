@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { TournamentContext } from "../../context/tournamentContext";
-import { validateProperty } from "../../services/validation";
 
 const TagInput = React.memo(
   ({ label, name, col = "12", error, tags, ...rest }) => {
@@ -8,17 +7,13 @@ const TagInput = React.memo(
       TournamentContext
     );
 
-    const { players } = state.data;
+    const array = state.data[name];
     const [inputValue, setInputValue] = useState("");
 
     const handleDelete = (targetPlayer) => {
-      deleteArrayItem(targetPlayer, "players");
-      const errorMessage = validateProperty({
-        name: "players",
-        value: players,
-      });
+      deleteArrayItem(targetPlayer, name, array);
 
-      setError("players", errorMessage);
+      /* setError(name, array); */
     };
 
     const handleKeyDown = (e) => {
@@ -27,7 +22,7 @@ const TagInput = React.memo(
         const newValue = inputValue.trim().replace(",", "").replace(";", "");
         setInputValue("");
 
-        addArrayItem(newValue, "players");
+        addArrayItem(newValue, name, array);
       }
     };
 
@@ -44,9 +39,9 @@ const TagInput = React.memo(
           onKeyUp={handleKeyDown}
         />
         <div className="tags">
-          {!players.length && <i>Please add four players at least</i>}
+          {!array.length && <i>Please add four players at least</i>}
 
-          {players.map((n) => (
+          {array.map((n) => (
             <div className="tags__element" key={n + Math.random()}>
               <span className="tags__element__text">{n}</span>
               <span

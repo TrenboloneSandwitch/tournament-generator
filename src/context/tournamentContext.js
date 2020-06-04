@@ -32,7 +32,8 @@ export const TournamentProvider = ({ children }) => {
   );
 
   const addArrayItem = useCallback(
-    (subjectItem, arrName) => {
+    (subjectItem, arrName, value) => {
+      setError(arrName, value);
       dispatch({
         type: ADD_ARRAY_ITEM,
         payload: { subjectItem, arrName },
@@ -41,19 +42,19 @@ export const TournamentProvider = ({ children }) => {
     [dispatch]
   );
   const deleteArrayItem = useCallback(
-    (subjectItem, arrName) => {
+    (subjectItem, arrName, value) => {
       dispatch({
         type: DELETE_ARRAY_ITEM,
         payload: { subjectItem, arrName },
       });
+      setError(arrName, value);
     },
     [dispatch]
   );
 
   const setError = useCallback(
-    (name, error) => {
-      console.log(name, error);
-
+    (name, value) => {
+      const error = validateProperty(name, value);
       dispatch({
         type: SET_ERROR,
         payload: { name, error },
@@ -74,11 +75,10 @@ export const TournamentProvider = ({ children }) => {
   }, [dispatch, state]);
 
   const handleSingleInput = (input) => {
-    const errorMessage = validateProperty(input);
     const { name, value } = input;
 
     changeOne(name, value);
-    setError(name, errorMessage);
+    setError(name, value);
   };
 
   const value = {
