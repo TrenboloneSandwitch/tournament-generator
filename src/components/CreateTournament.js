@@ -1,11 +1,10 @@
-import React, { useState, useContext } from "react";
-import Joi from "joi-browser";
+import React, { useContext } from "react";
 import { TournamentContext } from "../context/tournamentContext";
 import { validate } from "../services/validation";
 import Input from "./common/Input";
 import TagInput from "./common/TagInput";
 
-const CreateTournament = () => {
+const CreateTournament = React.memo(() => {
   const { handleSingleInput, submitForm, state } = useContext(
     TournamentContext
   );
@@ -69,6 +68,6 @@ const CreateTournament = () => {
       </form>
     </div>
   );
-};
+});
 
 export default CreateTournament;

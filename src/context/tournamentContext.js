@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useCallback } from "react";
 import { reducerVars } from "../config";
 import { tournamentReducer } from "../reducers/tournamentReducers";
 import { validateProperty, validate } from "../services/validation";
@@ -21,34 +21,46 @@ const initialState = {
 export const TournamentProvider = ({ children }) => {
   const [state, dispatch] = useReducer(tournamentReducer, initialState);
 
-  const changeOne = (name, value) => {
-    dispatch({
-      type: CHANGE_ONE,
-      payload: { name, value },
-    });
-  };
+  const changeOne = useCallback(
+    (name, value) => {
+      dispatch({
+        type: CHANGE_ONE,
+        payload: { name, value },
+      });
+    },
+    [dispatch]
+  );
 
-  const addTag = (player) => {
-    dispatch({
-      type: ADD_TAG,
-      payload: { player },
-    });
-  };
-  const deleteTag = (player) => {
-    dispatch({
-      type: DELETE_TAG,
-      payload: { player },
-    });
-  };
+  const addTag = useCallback(
+    (player) => {
+      dispatch({
+        type: ADD_TAG,
+        payload: { player },
+      });
+    },
+    [dispatch]
+  );
+  const deleteTag = useCallback(
+    (player) => {
+      dispatch({
+        type: DELETE_TAG,
+        payload: { player },
+      });
+    },
+    [dispatch]
+  );
 
-  const setError = (name, error) => {
-    dispatch({
-      type: SET_ERROR,
-      payload: { name, error },
-    });
-  };
+  const setError = useCallback(
+    (name, error) => {
+      dispatch({
+        type: SET_ERROR,
+        payload: { name, error },
+      });
+    },
+    [dispatch]
+  );
 
-  const submitForm = () => {
+  const submitForm = useCallback(() => {
     const errors = validate(state.data);
     dispatch({
       type: HANDLE_ERRORS,
@@ -57,7 +69,7 @@ export const TournamentProvider = ({ children }) => {
     if (errors) return;
     // insert in the DB
     console.log(state);
-  };
+  }, [dispatch, state]);
 
   const handleSingleInput = (input) => {
     const errorMessage = validateProperty(input);

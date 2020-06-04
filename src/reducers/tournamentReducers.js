@@ -36,14 +36,12 @@ export const tournamentReducer = (state, action) => {
     return { ...state, data };
   }
   if (action.type === DELETE_TAG) {
-    /* const playerIndex = state.data.players.findIndex(
-      (elName) => elName === action.payload.player
+    const players = state.data.players.filter(
+      (pl) => pl !== action.payload.player
     );
-    const players = state.data.players;
-    players.splice(playerIndex, 1);
     const data = { ...state.data, players };
 
-    return { ...state, data }; */
+    return { ...state, data };
   }
 
   return state;

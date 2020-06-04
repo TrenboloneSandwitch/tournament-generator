@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ label, name, col = "12", error, ...rest }) => {
+const Input = React.memo(({ label, name, col = "12", error, ...rest }) => {
   return (
     <div className={`form-group col-${col}`}>
       <label htmlFor={name}>{label}</label>
@@ -20,6 +20,6 @@ const Input = ({ label, name, col = "12", error, ...rest }) => {
       )}
     </div>
   );
-};
+});
 
 export default Input;
