@@ -61,8 +61,9 @@ const CreateTournament = React.memo(() => {
           name="players"
           col="12"
           placeholder="Use comma for separate tags"
+          error={errors["players"]}
         />
-        <button disabled={validate(data)} className="btn btn-primary">
+        <button disabled={validate(data)} className="btn btn-primary btn-block">
           SUBMIT
         </button>
       </form>

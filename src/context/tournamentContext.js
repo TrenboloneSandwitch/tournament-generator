@@ -9,8 +9,8 @@ const {
   CHANGE_ONE,
   SET_ERROR,
   HANDLE_ERRORS,
-  ADD_TAG,
-  DELETE_TAG,
+  ADD_ARRAY_ITEM,
+  DELETE_ARRAY_ITEM,
 } = reducerVars;
 
 const initialState = {
@@ -31,20 +31,20 @@ export const TournamentProvider = ({ children }) => {
     [dispatch]
   );
 
-  const addTag = useCallback(
-    (player) => {
+  const addArrayItem = useCallback(
+    (subjectItem, arrName) => {
       dispatch({
-        type: ADD_TAG,
-        payload: { player },
+        type: ADD_ARRAY_ITEM,
+        payload: { subjectItem, arrName },
       });
     },
     [dispatch]
   );
-  const deleteTag = useCallback(
-    (player) => {
+  const deleteArrayItem = useCallback(
+    (subjectItem, arrName) => {
       dispatch({
-        type: DELETE_TAG,
-        payload: { player },
+        type: DELETE_ARRAY_ITEM,
+        payload: { subjectItem, arrName },
       });
     },
     [dispatch]
@@ -52,6 +52,8 @@ export const TournamentProvider = ({ children }) => {
 
   const setError = useCallback(
     (name, error) => {
+      console.log(name, error);
+
       dispatch({
         type: SET_ERROR,
         payload: { name, error },
@@ -79,7 +81,14 @@ export const TournamentProvider = ({ children }) => {
     setError(name, errorMessage);
   };
 
-  const value = { handleSingleInput, submitForm, addTag, deleteTag, state };
+  const value = {
+    handleSingleInput,
+    submitForm,
+    addArrayItem,
+    deleteArrayItem,
+    setError,
+    state,
+  };
 
   return (
     <TournamentContext.Provider value={value}>

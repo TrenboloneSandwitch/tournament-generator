@@ -1,17 +1,24 @@
 import React, { useState, useContext } from "react";
 import { TournamentContext } from "../../context/tournamentContext";
+import { validateProperty } from "../../services/validation";
 
 const TagInput = React.memo(
   ({ label, name, col = "12", error, tags, ...rest }) => {
-    const { addTag, deleteTag, state } = useContext(TournamentContext);
+    const { addArrayItem, deleteArrayItem, state, setError } = useContext(
+      TournamentContext
+    );
 
     const { players } = state.data;
     const [inputValue, setInputValue] = useState("");
 
     const handleDelete = (targetPlayer) => {
-      deleteTag(targetPlayer);
+      deleteArrayItem(targetPlayer, "players");
+      const errorMessage = validateProperty({
+        name: "players",
+        value: players,
+      });
 
-      // setNames(newNames);
+      setError("players", errorMessage);
     };
 
     const handleKeyDown = (e) => {
@@ -20,7 +27,7 @@ const TagInput = React.memo(
         const newValue = inputValue.trim().replace(",", "").replace(";", "");
         setInputValue("");
 
-        addTag(newValue);
+        addArrayItem(newValue, "players");
       }
     };
 

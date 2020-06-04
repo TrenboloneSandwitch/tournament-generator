@@ -3,8 +3,8 @@ const {
   CHANGE_ONE,
   SET_ERROR,
   HANDLE_ERRORS,
-  ADD_TAG,
-  DELETE_TAG,
+  ADD_ARRAY_ITEM,
+  DELETE_ARRAY_ITEM,
 } = reducerVars;
 
 export const tournamentReducer = (state, action) => {
@@ -29,17 +29,18 @@ export const tournamentReducer = (state, action) => {
 
     return { ...state, errors: errors || {} };
   }
-  if (action.type === ADD_TAG) {
-    const players = [...state.data.players, action.payload.player];
-    const data = { ...state.data, players };
+  if (action.type === ADD_ARRAY_ITEM) {
+    const { subjectItem, arrName } = action.payload;
+    const newArray = [...state.data[arrName], subjectItem];
+    const data = { ...state.data, [arrName]: newArray };
 
     return { ...state, data };
   }
-  if (action.type === DELETE_TAG) {
-    const players = state.data.players.filter(
-      (pl) => pl !== action.payload.player
-    );
-    const data = { ...state.data, players };
+  if (action.type === DELETE_ARRAY_ITEM) {
+    const { subjectItem, arrName } = action.payload;
+
+    const newArray = state.data[arrName].filter((item) => item !== subjectItem);
+    const data = { ...state.data, [arrName]: newArray };
 
     return { ...state, data };
   }

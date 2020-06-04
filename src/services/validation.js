@@ -4,9 +4,10 @@ const schema = {
   place: Joi.string().min(3).required().label("Misto"),
   date: Joi.string().min(3).required().label("Datum"),
   time: Joi.string()
-    .regex(/^([0-9]{2}):([0-9]{2})$/)
+    .regex(/^([0-9]{2})\:([0-9]{2})$/)
     .required()
     .label("Cas"),
+  players: Joi.array().min(4).required().label("Hráči"),
 };
 
 export const validateProperty = ({ name, value }) => {
