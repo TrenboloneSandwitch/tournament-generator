@@ -6,13 +6,13 @@ import CreateTournament from "./components/CreateTournament";
 import { TournamentProvider } from "./context/tournamentContext";
 
 function App() {
-  const [pageBg, setPageBg] = useState("trophy.jpg");
+  const [pageBg] = useState("trophy.jpg");
 
   return (
     <div
       className="App"
       style={{
-        /* backgroundImage: `url(/images/${pageBg})`, */
+        backgroundImage: `url(/images/${pageBg})`,
         width: "100%",
         height: "100vh",
       }}
