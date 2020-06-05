@@ -14,7 +14,15 @@ const {
 } = reducerVars;
 
 const initialState = {
-  data: { name: "", place: "", date: "", time: "", players: [] },
+  data: {
+    name: "",
+    place: "",
+    date: "",
+    time: "",
+    type: "",
+    players: [],
+    teams: [],
+  },
   errors: {},
 };
 
@@ -33,7 +41,6 @@ export const TournamentProvider = ({ children }) => {
 
   const addArrayItem = useCallback(
     (subjectItem, arrName, value) => {
-      setError(arrName, value);
       dispatch({
         type: ADD_ARRAY_ITEM,
         payload: { subjectItem, arrName },
@@ -47,7 +54,6 @@ export const TournamentProvider = ({ children }) => {
         type: DELETE_ARRAY_ITEM,
         payload: { subjectItem, arrName },
       });
-      setError(arrName, value);
     },
     [dispatch]
   );
@@ -75,6 +81,8 @@ export const TournamentProvider = ({ children }) => {
   }, [dispatch, state]);
 
   const handleSingleInput = (input) => {
+    console.log(input);
+
     const { name, value } = input;
 
     changeOne(name, value);

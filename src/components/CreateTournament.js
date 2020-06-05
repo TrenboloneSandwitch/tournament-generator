@@ -1,3 +1,4 @@
+import Select from "react-select";
 import React, { useContext } from "react";
 import { TournamentContext } from "../context/tournamentContext";
 import { validate } from "../services/validation";
@@ -9,6 +10,10 @@ const CreateTournament = React.memo(() => {
     TournamentContext
   );
   const { data, errors } = state;
+  const tournamentTypes = [
+    { label: "Všichni proti všem", value: "round-robin" },
+    { label: "Skupinový pavouk", value: "groups-final" },
+  ];
 
   const doSubmit = async (e) => {
     e.preventDefault();
@@ -56,12 +61,27 @@ const CreateTournament = React.memo(() => {
           error={errors["time"]}
         />
         <TagInput
-          type="text"
-          label="Hraci"
+          label="Hráči"
           name="players"
-          col="12"
-          placeholder="Use comma for separate tags"
+          placeholder="Use comma, semicolon or ENTER for adding new tag"
           error={errors["players"]}
+        />
+        <div className="form-group col-12">
+          <label htmlFor="select-type">Formát turnaje</label>
+          <Select
+            id="select-type"
+            isSearchable={false}
+            value={data.type}
+            options={tournamentTypes}
+            placeholder="Filter by Region"
+            onChange={(e) => handleSingleInput({ name: "type", value: e })}
+          />
+        </div>
+        <TagInput
+          label="Týmy"
+          name="teams"
+          placeholder="Use comma, semicolon or ENTER for adding new tag"
+          error={errors["teams"]}
         />
         <button disabled={validate(data)} className="btn btn-primary btn-block">
           SUBMIT
