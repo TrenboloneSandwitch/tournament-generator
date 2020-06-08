@@ -1,4 +1,4 @@
-import { reducerVars } from "../config";
+import { reducerVars } from "../config/config";
 const {
   CHANGE_ONE,
   SET_ERROR,

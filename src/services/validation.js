@@ -1,5 +1,5 @@
 import Joi from "joi-browser";
-import { schema } from "../config";
+import { schema } from "../config/config";
 
 export const validateProperty = (name, value) => {
   const obj = { [name]: value };

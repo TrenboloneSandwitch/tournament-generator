@@ -1,5 +1,5 @@
 import React, { useReducer, useCallback } from "react";
-import { reducerVars } from "../config";
+import { reducerVars } from "../config/config";
 import { tournamentReducer } from "../reducers/tournamentReducers";
 import { validateProperty, validate } from "../services/validation";
 

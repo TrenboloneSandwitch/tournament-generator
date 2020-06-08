@@ -1,5 +1,6 @@
+import firebase from "../config/firebase";
 import Select from "react-select";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TournamentContext } from "../context/tournamentContext";
 import { validate } from "../services/validation";
 import Input from "./common/Input";
@@ -10,10 +11,49 @@ const CreateTournament = React.memo(() => {
     TournamentContext
   );
   const { data, errors } = state;
+
   const tournamentTypes = [
     { label: "Všichni proti všem", value: "round-robin" },
     { label: "Skupinový pavouk", value: "groups-final" },
   ];
+
+  const [clubs, setClubs] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = firebase.firestore();
+      const querySnapshot = await db.collection("clubs").get();
+      console.log(querySnapshot);
+
+      setClubs(
+        querySnapshot.docs.map((doc) => {
+          return { label: doc.data().name, value: doc.data().alpha3Code };
+        })
+      );
+
+      /* querySnapshot.forEach((doc) => {
+        const { name, alpha3Code } = doc.data();
+        const newClub = { label: name, value: alpha3Code };
+        setClubs([...clubs, newClub]);
+        console.log(newClub);
+      }); */
+    };
+
+    fetchData();
+
+    /* db.collection("clubs")
+      .get()
+      .then((querySnapshot) => {
+
+
+        querySnapshot.forEach((doc) => {
+          console.log(doc.data());
+          const { name, alpha3Code } = doc.data();
+          const newClub = { label: name, value: alpha3Code };
+          setClubs([...clubs, newClub]);
+        });
+      }); */
+  }, []);
 
   const doSubmit = async (e) => {
     e.preventDefault();
@@ -73,16 +113,27 @@ const CreateTournament = React.memo(() => {
             isSearchable={false}
             value={data.type}
             options={tournamentTypes}
-            placeholder="Filter by Region"
+            placeholder=""
             onChange={(e) => handleSingleInput({ name: "type", value: e })}
           />
         </div>
-        <TagInput
+        {/* <TagInput
           label="Týmy"
           name="teams"
           placeholder="Use comma, semicolon or ENTER for adding new tag"
           error={errors["teams"]}
-        />
+        /> */}
+        <div className="form-group col-12">
+          <label htmlFor="select-clubs">Kluby</label>
+          <Select
+            id="select-clubs"
+            isSearchable={true}
+            value={data.teams}
+            isMulti={true}
+            options={clubs}
+            onChange={(e) => handleSingleInput({ name: "teams", value: e })}
+          />
+        </div>
         <button disabled={validate(data)} className="btn btn-primary btn-block">
           SUBMIT
         </button>
