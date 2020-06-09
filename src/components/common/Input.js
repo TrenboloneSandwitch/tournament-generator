@@ -1,25 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
+import FormElement from "./FormElement";
+import { TournamentContext } from "../../context/tournamentContext";
 
-const Input = React.memo(({ label, name, col = "12", error, ...rest }) => {
+const Input = ({ name, col, label, type = "text", ...rest }) => {
+  const { handleSingleInput, state } = useContext(TournamentContext);
+  const { data, errors } = state;
+  const error = errors[name];
+
   return (
-    <div className={`form-group col-${col}`}>
-      <label htmlFor={name}>{label}</label>
-      <input
-        className={`form-control${error ? " is-invalid" : ""}`}
-        id={name}
-        name={name}
-        {...rest}
-      />
-      {error && (
-        <small
-          id={`${name}-help`}
-          className={`form-text text-${!error ? "muted" : "danger"} text-right`}
-        >
-          {error}
-        </small>
-      )}
-    </div>
+    <FormElement
+      label={label}
+      name={name}
+      col={col}
+      error={error}
+      children={
+        <input
+          className={`form-control${error ? " is-invalid" : ""}`}
+          id={name}
+          name={name}
+          type={type}
+          value={data[name]}
+          onChange={({ currentTarget }) => handleSingleInput(currentTarget)}
+          {...rest}
+        />
+      }
+    />
   );
-});
+};
 
 export default Input;

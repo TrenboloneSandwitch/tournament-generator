@@ -1,14 +1,16 @@
-import React, { useState, useContext } from "react";
-import { TournamentContext } from "../../context/tournamentContext";
+import React, { useContext, useState } from "react";
 import { useEffectExceptOnMount } from "../../hooks/useEffectExceptOnMount";
+import FormElement from "./FormElement";
+import { TournamentContext } from "../../context/tournamentContext";
 
-const TagInput = React.memo(({ label, name, error, tags, ...rest }) => {
+const TagInput = ({ name, col, label, type = "text", emptyText, ...rest }) => {
   const { addArrayItem, deleteArrayItem, state, setError } = useContext(
     TournamentContext
   );
+  const [inputValue, setInputValue] = useState("");
 
   const array = state.data[name];
-  const [inputValue, setInputValue] = useState("");
+  const error = state.errors[name];
 
   useEffectExceptOnMount(() => {
     setError(name, array);
@@ -23,49 +25,47 @@ const TagInput = React.memo(({ label, name, error, tags, ...rest }) => {
     if (e.isComposing || e.key === "," || e.key === ";" || e.keyCode === 13) {
       const newValue = inputValue.trim().replace(",", "").replace(";", "");
       setInputValue("");
-
       addArrayItem(newValue, name, array);
     }
   };
 
   return (
-    <div className={`form-group col-12`}>
-      <label htmlFor={name}>{label}</label>
-      <input
-        className={`form-control${error ? " is-invalid" : ""}`}
-        type="text"
-        id={name}
-        name={name}
-        {...rest}
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onKeyUp={handleKeyDown}
-      />
-      <div className="tags">
-        {!array.length && <i>Please add four players at least</i>}
+    <FormElement
+      label={label}
+      name={name}
+      col={col}
+      error={error}
+      children={
+        <React.Fragment>
+          <input
+            className={`form-control${error ? " is-invalid" : ""}`}
+            type={type}
+            id={name}
+            name={name}
+            {...rest}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyUp={handleKeyDown}
+          />
+          <div className="tags">
+            {!array.length && <i>{emptyText}</i>}
 
-        {array.map((n) => (
-          <div className="tags__element" key={n + Math.random()}>
-            <span className="tags__element__text">{n}</span>
-            <span
-              className="tags__element__delete"
-              onClick={() => handleDelete(n)}
-            >
-              &times;
-            </span>
+            {array.map((n) => (
+              <div className="tags__element" key={n + Math.random()}>
+                <span className="tags__element__text">{n}</span>
+                <span
+                  className="tags__element__delete"
+                  onClick={() => handleDelete(n)}
+                >
+                  &times;
+                </span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      {error && (
-        <small
-          id={`${name}-help`}
-          className={`form-text text-${!error ? "muted" : "danger"} text-right`}
-        >
-          {error}
-        </small>
-      )}
-    </div>
+        </React.Fragment>
+      }
+    />
   );
-});
+};
 
 export default TagInput;
