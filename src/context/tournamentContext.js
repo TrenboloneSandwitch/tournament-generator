@@ -81,10 +81,7 @@ export const TournamentProvider = ({ children }) => {
   }, [dispatch, state]);
 
   const handleSingleInput = (input) => {
-    console.log(input);
-
     const { name, value } = input;
-
     changeOne(name, value);
     setError(name, value);
   };
