@@ -1,7 +1,8 @@
-import firebase from "../services/firebase";
 import React, { useContext, useEffect, useState } from "react";
+import { navigate } from "@reach/router";
 import { TournamentContext } from "../context/tournamentContext";
 import { validate } from "../services/validation";
+import firebase from "../services/firebase";
 
 import Input from "./common/Input";
 import TagInput from "./common/TagInput";
@@ -34,7 +35,13 @@ const CreateTournament = React.memo(() => {
 
   const doSubmit = async (e) => {
     e.preventDefault();
-    submitForm();
+    const response = await submitForm();
+
+    if (response !== null) console.log("error has occured");
+    else {
+      console.log("All good");
+      navigate("/");
+    }
   };
 
   return (
