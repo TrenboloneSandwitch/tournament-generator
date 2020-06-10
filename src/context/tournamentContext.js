@@ -2,6 +2,7 @@ import React, { useReducer, useCallback } from "react";
 import { reducerVars } from "../config/config";
 import { tournamentReducer } from "../reducers/tournamentReducers";
 import { validateProperty, validate } from "../services/validation";
+import firebase from "../services/firebase";
 
 export const TournamentContext = React.createContext();
 TournamentContext.displayName = "TournamentContext";
@@ -76,8 +77,8 @@ export const TournamentProvider = ({ children }) => {
       payload: { errors },
     });
     if (errors) return;
-    // insert in the DB
-    console.log(state);
+
+    firebase.post("tournaments", state.data);
   }, [dispatch, state]);
 
   const handleSingleInput = (input) => {
