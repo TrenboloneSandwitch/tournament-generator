@@ -1,12 +1,12 @@
+import { Router, Link } from "@reach/router";
 import React, { useState } from "react";
-
+//import CreateTournament from "./components/CreateTournament";
+import Dashboard from "./components/Dashboard";
 import "./App.scss";
-
-import CreateTournament from "./components/CreateTournament";
-import { TournamentProvider } from "./context/tournamentContext";
+import NewTournament from "./components/NewTournament";
 
 function App() {
-  const [pageBg] = useState("trophy.jpg");
+  const [pageBg] = useState("bg-ball.jpg");
 
   return (
     <div
@@ -17,9 +17,11 @@ function App() {
         height: "100vh",
       }}
     >
-      <TournamentProvider>
-        <CreateTournament />
-      </TournamentProvider>
+      <Router>
+        <Dashboard path="/" />
+
+        <NewTournament path="newTournament" />
+      </Router>
     </div>
   );
 }
