@@ -1,9 +1,14 @@
 import { Link } from "@reach/router";
 import React, { useEffect, useState } from "react";
 import firebase from "../services/firebase";
+import TournamentsTable from "./TournamentsTable";
 
 const Dashboard = () => {
   const [allTournaments, setAllTournaments] = useState([]);
+  const [sortColumn, setSortColumn] = useState({
+    path: "title",
+    order: "asc",
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,17 +19,30 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
+  const handleDelete = async (id) => {
+    console.log("delte");
+  };
+
+  const handleToggle = (id) => {
+    console.log("toggle");
+  };
+
+  const handleSort = (sortColumn) => {
+    console.log("sort");
+  };
+
   return (
     <div>
       <h1>Dashboard</h1>
       <Link to="newTournament">New Tournament</Link>
 
-      <ul>
-        {allTournaments &&
-          allTournaments.map((t) => (
-            <li key={t.name.replace(" ", "-").toLowerCase()}>{t.name}</li>
-          ))}
-      </ul>
+      <TournamentsTable
+        movies={allTournaments}
+        sortColumn={sortColumn}
+        onToggle={handleToggle}
+        onDelete={handleDelete}
+        onSort={handleSort}
+      />
     </div>
   );
 };
