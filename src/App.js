@@ -1,6 +1,5 @@
-import { Router, Link } from "@reach/router";
+import { Router } from "@reach/router";
 import React, { useState } from "react";
-//import CreateTournament from "./components/CreateTournament";
 import Dashboard from "./components/Dashboard";
 import "./App.scss";
 import NewTournament from "./components/NewTournament";

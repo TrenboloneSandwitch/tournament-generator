@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "@reach/router";
 import { TableProvider } from "../context/tableContext";
-import firebase from "../services/firebase";
 import TournamentsTable from "./TournamentsTable";
 
 const Dashboard = () => {
