@@ -11,6 +11,7 @@ export const reducerVars = {
   LOADING: "LOADING",
   RESPONSE_COMPLETE: "RESPONSE_COMPLETE",
   ERROR: "ERROR",
+  ON_DELETE: "ON_DELETE",
 };
 
 export const schema = {

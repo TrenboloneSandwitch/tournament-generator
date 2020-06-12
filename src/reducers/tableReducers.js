@@ -1,9 +1,18 @@
 import { reducerVars } from "../config/config";
-const { SORT_TABLE, ERROR, RESPONSE_COMPLETE, LOADING } = reducerVars;
+const {
+  SORT_TABLE,
+  ERROR,
+  RESPONSE_COMPLETE,
+  LOADING,
+  ON_DELETE,
+} = reducerVars;
 
 export const tableReducer = (state, action) => {
   if (action.type === SORT_TABLE) {
     return { ...state, sortColumn: action.payload.path };
+  }
+  if (action.type === ON_DELETE) {
+    console.log("delete: ", action.payload);
   }
 
   if (action.type === LOADING) {

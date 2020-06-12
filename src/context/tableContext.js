@@ -6,7 +6,13 @@ import { useThunkReducer } from "../hooks/useThunkReducer";
 
 export const TableContext = React.createContext();
 TableContext.displayName = "TableContext";
-const { SORT_TABLE, ERROR, RESPONSE_COMPLETE, LOADING } = reducerVars;
+const {
+  SORT_TABLE,
+  ERROR,
+  RESPONSE_COMPLETE,
+  LOADING,
+  ON_DELETE,
+} = reducerVars;
 
 const fetchData = (dispatch) => {
   dispatch({ type: LOADING });
@@ -21,7 +27,6 @@ const fetchData = (dispatch) => {
     })
     .catch((error) => dispatch({ type: ERROR, payload: { error } }));
 };
-
 const initialState = {
   data: [],
   sortColumn: {
@@ -47,10 +52,20 @@ export const TableProvider = ({ children }) => {
     },
     [dispatch]
   );
+  const onDelete = useCallback(
+    (id) => {
+      dispatch({
+        type: ON_DELETE,
+        payload: { id },
+      });
+    },
+    [dispatch]
+  );
 
   const value = {
     state,
     onSort,
+    onDelete,
   };
 
   return (
