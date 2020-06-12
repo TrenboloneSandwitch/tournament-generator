@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TableContext } from "../../context/tableContext";
 
-const TableHeader = ({ columns, sortColumn, onSort }) => {
+const TableHeader = ({ columns }) => {
+  const { state, onSort } = useContext(TableContext);
+  const { sortColumn } = state;
+
   const raiseSort = (path) => {
-    if (sortColumn.path === path) {
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    } else {
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
-    onSort(sortColumn);
+    onSort(path);
   };
 
   const renderSortIcon = (column) => {
@@ -27,6 +25,7 @@ const TableHeader = ({ columns, sortColumn, onSort }) => {
               key={column.path || column.key}
               onClick={() => raiseSort(column.path)}
             >
+              {" "}
               {column.label} {renderSortIcon(column)}
             </th>
           );

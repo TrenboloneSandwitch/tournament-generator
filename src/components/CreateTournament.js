@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { navigate } from "@reach/router";
 import { TournamentContext } from "../context/tournamentContext";
+
 import { validate } from "../services/validation";
 import firebase from "../services/firebase";
 

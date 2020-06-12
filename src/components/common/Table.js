@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TableContext } from "../../context/tableContext";
 
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 
-const Table = ({ columns, sortColumn, onSort, data }) => {
+const Table = ({ columns }) => {
+  const { state } = useContext(TableContext);
+  const { data, loading, error } = state;
   return (
-    <table className="table">
-      <TableHeader columns={columns} onSort={onSort} sortColumn={sortColumn} />
-      <TableBody data={data} columns={columns} />
-    </table>
+    <React.Fragment>
+      {loading && !error && !data && <div>Loading...</div>}
+      {!loading && error && !data && <div>{error}</div>}
+      {data && (
+        <table className="table">
+          <TableHeader columns={columns} />
+          <TableBody columns={columns} />
+        </table>
+      )}
+    </React.Fragment>
   );
 };
 
