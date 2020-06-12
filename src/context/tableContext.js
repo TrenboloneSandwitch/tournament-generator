@@ -25,8 +25,8 @@ const fetchData = (dispatch) => {
 const initialState = {
   data: [],
   sortColumn: {
-    path: "name",
-    order: "asc",
+    path: "date",
+    order: "desc",
   },
 };
 

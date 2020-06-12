@@ -1,11 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import _ from "lodash";
-import { TableContext } from "../../context/tableContext";
 
-const TableBody = ({ columns }) => {
-  const { state } = useContext(TableContext);
-  const { data } = state;
-
+const TableBody = ({ columns, data }) => {
   const renderCell = (item, column) => {
     if (column.content) return column.content(item);
     return _.get(item, column.path);

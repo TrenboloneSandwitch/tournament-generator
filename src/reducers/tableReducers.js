@@ -3,15 +3,7 @@ const { SORT_TABLE, ERROR, RESPONSE_COMPLETE, LOADING } = reducerVars;
 
 export const tableReducer = (state, action) => {
   if (action.type === SORT_TABLE) {
-    const sortColumn = state.sortColumn;
-    if (sortColumn.path === action.payload.path) {
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    } else {
-      sortColumn.path = action.payload.path;
-      sortColumn.order = "asc";
-    }
-
-    return { ...state, sortColumn };
+    return { ...state, sortColumn: action.payload.path };
   }
 
   if (action.type === LOADING) {
