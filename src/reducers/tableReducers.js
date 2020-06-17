@@ -12,7 +12,8 @@ export const tableReducer = (state, action) => {
     return { ...state, sortColumn: action.payload.path };
   }
   if (action.type === ON_DELETE) {
-    console.log("delete: ", action.payload);
+    const newState = state.data.filter((item) => item.id !== action.payload.id);
+    return { ...state, data: newState };
   }
 
   if (action.type === LOADING) {

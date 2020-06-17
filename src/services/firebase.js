@@ -19,4 +19,17 @@ const post = async (collectionName, payload) => {
     });
 };
 
-export default { get, post };
+const remove = async (collectionName, id) => {
+  // Add a new document in collection "cities"
+  db.collection(collectionName)
+    .doc(id)
+    .delete()
+    .then(function () {
+      console.log("Document successfully deleted!");
+    })
+    .catch(function (error) {
+      console.error("Error deleting document: ", error);
+    });
+};
+
+export default { get, post, remove };

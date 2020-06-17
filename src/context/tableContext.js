@@ -27,6 +27,7 @@ const fetchData = (dispatch) => {
     })
     .catch((error) => dispatch({ type: ERROR, payload: { error } }));
 };
+
 const initialState = {
   data: [],
   sortColumn: {
@@ -54,10 +55,15 @@ export const TableProvider = ({ children }) => {
   );
   const onDelete = useCallback(
     (id) => {
-      dispatch({
-        type: ON_DELETE,
-        payload: { id },
-      });
+      const oldData = data;
+      firebase
+        .remove("tournaments", id)
+        .then(() => {
+          dispatch({ type: ON_DELETE, payload: { id } });
+        })
+        .catch(() =>
+          dispatch({ type: RESPONSE_COMPLETE, payload: { data: oldData } })
+        );
     },
     [dispatch]
   );
