@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "@reach/router";
 
 import Table from "./common/Table";
 import { TableContext } from "../context/tableContext";
@@ -27,8 +28,9 @@ const TournamentsTable = () => {
     {
       path: "name",
       label: "Name",
-
-      /* content: (movie) => <a href={`/tournament/${movie.key}`}>{movie.name}</a>, */
+      content: (tournament) => (
+        <Link to={`/tournament/${tournament.id}`}>{tournament.name}</Link>
+      ),
     },
     { path: "players.length", label: "Počet Hráčů" },
     { path: "date", label: "Datum" },

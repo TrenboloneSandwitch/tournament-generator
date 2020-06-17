@@ -6,6 +6,11 @@ const get = async (collectionName) => {
   return data.docs;
 };
 
+const getById = async (collectionName, id) => {
+  const doc = await db.collection(collectionName).doc(id).get();
+  return doc.data();
+};
+
 const post = async (collectionName, payload) => {
   // Add a new document in collection "cities"
   db.collection(collectionName)
@@ -32,4 +37,4 @@ const remove = async (collectionName, id) => {
     });
 };
 
-export default { get, post, remove };
+export default { get, getById, post, remove };

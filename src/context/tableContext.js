@@ -34,6 +34,7 @@ const initialState = {
     path: "date",
     order: "desc",
   },
+  currentTournament: {},
 };
 
 export const TableProvider = ({ children }) => {
@@ -43,6 +44,13 @@ export const TableProvider = ({ children }) => {
   useEffect(() => {
     dispatch(fetchData);
   }, [dispatch]);
+
+  const setCurrentTournament = useCallback(
+    (id) => {
+      console.log(id);
+    },
+    [dispatch]
+  );
 
   const onSort = useCallback(
     (path) => {
@@ -72,6 +80,7 @@ export const TableProvider = ({ children }) => {
     state,
     onSort,
     onDelete,
+    setCurrentTournament,
   };
 
   return (

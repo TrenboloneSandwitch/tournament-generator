@@ -1,8 +1,9 @@
 import { Router } from "@reach/router";
 import React, { useState } from "react";
 import Dashboard from "./components/Dashboard";
-import "./App.scss";
 import NewTournament from "./components/NewTournament";
+import TournamentDetail from "./components/TournamentDetail";
+import "./App.scss";
 
 function App() {
   const [pageBg] = useState("bg-ball.jpg");
@@ -18,7 +19,7 @@ function App() {
     >
       <Router>
         <Dashboard path="/" />
-
+        <TournamentDetail path="tournament/:id" />
         <NewTournament path="newTournament" />
       </Router>
     </div>
